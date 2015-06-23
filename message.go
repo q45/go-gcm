@@ -1,5 +1,7 @@
 package gcm
 
+import "fmt"
+
 // The field meaning explained at [GCM Architectural Overview](http://developer.android.com/guide/google/gcm/gcm.html#send-msg)
 type Message struct {
 	RegistrationIDs []string          `json:"registration_ids"`
@@ -53,6 +55,7 @@ func (r *Response) SuccessIndexes() []int {
 
 // Return the indexes of failed sent registration ids
 func (r *Response) ErrorIndexes() []int {
+	fmt.Println("FAILURE FROM GOOGLE RESPONSE", r.Failure)
 	ret := make([]int, 0, r.Failure)
 	for i, result := range r.Results {
 		if result.Error != "" {
